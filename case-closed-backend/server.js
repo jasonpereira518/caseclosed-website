@@ -38,19 +38,42 @@ app.use(helmet());
 app.use(express.json({ limit: "50kb" }));
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = (process.env.ALLOWED_ORIGIN || "")
-  .split(",")
-  .map(s => s.trim())
-  .filter(Boolean);
+const cors = require("cors");
+
+const allowedOrigins = [
+  "https://caseclosed-ai.netlify.app",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+];
 
 app.use(cors({
-  origin: [/\.netlify\.app$/, "http://localhost:5500", "http://127.0.0.1:5500", "https://caseclosed-ai.netlify.app"],
+  origin: function (origin, callback) {
+    // allow requests with no origin (curl/postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    return callback(new Error("Not allowed by CORS: " + origin));
+  },
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 }));
 
-app.options(/.*/, cors());
+// ✅ IMPORTANT: handle preflight BEFORE routes
+app.options("*", cors());
 
+app.get("/debug-cors", (req, res) => {
+  res.json({
+    origin: req.get("origin"),
+    ok: true
+  });
+});
+
+
+app.use((req, _res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} Origin=${req.get("origin")}`);
+  next();
+});
 
 
 // Rate limit to prevent spam
