@@ -18,10 +18,12 @@
  *   SMTP_SECURE=true
  *   SMTP_USER=your_gmail_or_smtp_user
  *   SMTP_PASS=your_app_password_or_smtp_password
- *   ALLOWED_ORIGIN=http://127.0.0.1:5500   (or your deployed frontend URL)
+ *   ALLOWED_ORIGIN=http://127.0.0.1:5500,http://localhost:5500,https://caseclosed-ai.netlify.app (or your deployed frontend URL)
  */
 
 require("dotenv").config();
+console.log("CONTACT_TO_EMAIL =", process.env.CONTACT_TO_EMAIL);
+
 
 const express = require("express");
 const nodemailer = require("nodemailer");
@@ -34,15 +36,29 @@ const app = express();
 // --- Security / parsing ---
 app.use(helmet());
 app.use(express.json({ limit: "50kb" }));
+app.use(express.urlencoded({ extended: true }));
 
-// CORS: restrict to your site in production
-const allowedOrigin = process.env.ALLOWED_ORIGIN || "*";
-app.use(
-  cors({
-    origin: allowedOrigin === "*" ? "*" : allowedOrigin,
-    methods: ["POST", "GET", "OPTIONS"],
-  })
-);
+const allowedOrigins = (process.env.ALLOWED_ORIGIN || "")
+  .split(",")
+  .map(s => s.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow non-browser requests (curl/postman) with no origin
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS: " + origin));
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+}));
+
+app.options(/.*/, cors());
+
 
 // Rate limit to prevent spam
 const contactLimiter = rateLimit({
@@ -119,7 +135,7 @@ app.post("/api/contact", async (req, res) => {
     const transporter = createTransporter();
 
     // Optional: verify SMTP connection (can be removed once stable)
-    await transporter.verify();
+    //await transporter.verify();
 
     const subject = `Case Closed Inquiry — ${name}`;
     const text = [
@@ -185,4 +201,9 @@ app.listen(PORT, () => {
 
 app.get("/", (req, res) => {
   res.send("Case Closed backend is running ✅");
+});
+
+app.use((err, _req, res, _next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ ok: false, error: "Server error" });
 });
