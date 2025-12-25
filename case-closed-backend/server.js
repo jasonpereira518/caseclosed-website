@@ -33,34 +33,38 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 
+const cors = require("cors");
+
+const allowedOrigins = new Set([
+  "https://caseclosed-ai.netlify.app",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+]);
+
+const corsOptions = {
+  origin: (origin, cb) => {
+    // Allow requests with no Origin (curl/postman)
+    if (!origin) return cb(null, true);
+
+    if (allowedOrigins.has(origin)) return cb(null, true);
+
+    // IMPORTANT: reject with false (not Error) so you don’t get confusing failures
+    return cb(null, false);
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+};
+
 // --- Security / parsing ---
 app.use(helmet());
 app.use(express.json({ limit: "50kb" }));
 app.use(express.urlencoded({ extended: true }));
 
-const cors = require("cors");
 
-const allowedOrigins = [
-  "https://caseclosed-ai.netlify.app",
-  "http://localhost:5500",
-  "http://127.0.0.1:5500",
-];
+app.use(cors(corsOptions));
+app.options("/api/contact", cors(corsOptions));  // handle preflight for the exact route
+app.options(/.*/, cors(corsOptions));            // handle preflight for everything else
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (curl/postman)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-
-    return callback(new Error("Not allowed by CORS: " + origin));
-  },
-  methods: ["GET", "POST", "OPTIONS"],
-  allowedHeaders: ["Content-Type"],
-}));
-
-// ✅ IMPORTANT: handle preflight BEFORE routes
-app.options("*", cors());
 
 app.get("/debug-cors", (req, res) => {
   res.json({
