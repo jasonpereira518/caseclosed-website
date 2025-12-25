@@ -1,0 +1,389 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Closed — AI Legal Research, Explained</title>
+  <meta name="description" content="Case Closed is an AI-powered legal research platform that finds, explains, and applies precedent—turning hours of research into minutes." />
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Top Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Case Closed Home">
+        <img class="brand-logo" src="assets/case-closed-logo.png" alt="Case Closed logo" />
+        <span class="brand-name">Case Closed</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#product">Product</a>
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#team">Team</a>
+        <a class="btn btn-ghost" href="#contact">Contact</a>
+      </nav>
+
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" hidden>
+      <div class="container mobile-links">
+        <a href="#product">Product</a>
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#team">Team</a>
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="pill">
+            <span class="dot"></span>
+            Built for modern legal research • Explainable AI
+          </div>
+
+          <h1>
+            AI legal research,
+            <span class="accent">explained</span>.
+          </h1>
+
+          <p class="lead">
+            Case Closed helps you find the right precedent fast—grounded in real court opinions,
+            with clear reasoning, citations, and draft-ready memos.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#contact">Request a demo</a>
+            <a class="btn btn-secondary" href="#product">See what it does</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-card">
+              <div class="trust-metric">1st Place</div>
+              <div class="trust-sub">Duke AI Hackathon 2025</div>
+            </div>
+            <div class="trust-card">
+              <div class="trust-metric">Multi-Agent</div>
+              <div class="trust-sub">Reasoning + retrieval pipeline</div>
+            </div>
+            <div class="trust-card">
+              <div class="trust-metric">API</div>
+              <div class="trust-sub">Courtlistener API with 9M+ cases</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel" aria-label="Product preview panel">
+          <div class="panel">
+            <div class="panel-top">
+              <div class="window-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="panel-title">Case Closed • Preview</div>
+            </div>
+
+            <div class="panel-body">
+              <div class="chat">
+                <div class="msg user">
+                  <div class="bubble">
+                    I’m handling an employment dispute involving alleged retaliation after a complaint.
+                    I need relevant precedent in the Fourth Circuit.
+                  </div>
+                </div>
+
+                <div class="msg bot">
+                  <div class="bubble">
+                    Got it. I’ll extract issues + jurisdiction, retrieve relevant opinions, and rank by factual/legal similarity.
+                    <div class="mini">Filters: Fourth Circuit • Employment • Retaliation</div>
+                  </div>
+                </div>
+
+                <div class="cards">
+                  <div class="case-card">
+                    <div class="case-top">
+                      <span class="badge">Top match</span>
+                      <span class="score" style="color: rgb(39, 182, 87);">Relevance: 91%</span>
+                    </div>
+                    <div class="case-title">Precedent A v. Employer (4th Cir.)</div>
+                    <div class="case-desc">
+                      Similar protected activity timeline + adverse action pattern. Strong comparator for causation analysis.
+                    </div>
+                    <div class="case-links">
+                      <a href="#contact">View summary</a>
+                      <span>•</span>
+                      <a href="#contact">Generate memo outline</a>
+                    </div>
+                  </div>
+
+                  <div class="case-card">
+                    <div class="case-top">
+                      <span class="badge soft">Related</span>
+                      <span class="score" style="color: rgb(120, 182, 39);">Relevance: 84%</span>
+                    </div>
+                    <div class="case-title">Employee B v. Company (4th Cir.)</div>
+                    <div class="case-desc">
+                      Addresses burden shifting and temporal proximity. Helpful for framework + citations section.
+                    </div>
+                    <div class="case-links">
+                      <a href="#contact">View summary</a>
+                      <span>•</span>
+                      <a href="#contact">Add to memo</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="msg bot">
+                  <div class="bubble">
+                    Want a one-page memo outline with issues, rule statements, and cited supporting cases?
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-note">
+            Transparent outputs • Citations included • Designed for iterative research
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product -->
+    <section id="product" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>What Case Closed does</h2>
+          <p>
+            Describe your case or upload a document. Case Closed finds and explains precedent using a reasoning-first,
+            multi-agent pipeline grounded in real court opinions.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="feature">
+            <h3>Precedent discovery</h3>
+            <p>Retrieves relevant opinions and ranks them by legal and factual similarity—not just keywords.</p>
+          </div>
+          <div class="feature">
+            <h3>Explainable relevance</h3>
+            <p>Shows why each case matters, how it connects, and what it supports—so you can trust the result.</p>
+          </div>
+          <div class="feature">
+            <h3>Draft-ready memos</h3>
+            <p>Generates structured memo or brief outlines grounded in citations, tailored to your context.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>How it works</h2>
+          <p>A modular multi-agent workflow designed to mirror real legal research.</p>
+        </div>
+
+        <ol class="steps">
+          <li>
+            <div class="step-num">1</div>
+            <div>
+              <h3>Extract facts + issues</h3>
+              <p>Identifies key facts, claims, jurisdictional constraints, and the legal questions at play.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">2</div>
+            <div>
+              <h3>Retrieve court opinions</h3>
+              <p>Queries large-scale opinion sources and filters by court level, jurisdiction, and relevance.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">3</div>
+            <div>
+              <h3>Evaluate + explain</h3>
+              <p>Ranks cases, highlights matching issue/fact patterns, and explains applicability with citations.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-num">4</div>
+            <div>
+              <h3>Generate memo or outline</h3>
+              <p>Produces a structured, exportable draft you can edit—saving hours of first-pass research time.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Built for trust, speed, and iteration</h2>
+          <p>Features designed for high-stakes workflows where accuracy and transparency matter.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="feature big">
+            <h3>Jurisdiction-aware filtering</h3>
+            <p>Refine by circuit, state, court level, and issue similarity to stay within your research constraints.</p>
+          </div>
+          <div class="feature big">
+            <h3>Session memory</h3>
+            <p>Preserves context across iterations so you can refine and build upon prior research, without starting over.</p>
+          </div>
+          <div class="feature big">
+            <h3>Citation-first outputs</h3>
+            <p>Every recommendation and memo component is grounded in cited opinions for verification.</p>
+          </div>
+          <div class="feature big">
+            <h3>Scalable architecture</h3>
+            <p>Modular agents + API-based retrieval make it easy to expand coverage, add tools, and improve ranking.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Our team</h2>
+          <p>Two builders combining product engineering and ML systems to modernize legal research.</p>
+        </div>
+
+        <div class="team-grid">
+          <div class="person">
+            <div class="avatar">JP</div>
+            <div>
+              <h3>Jason Pereira</h3>
+              <p class="role">Product • Multi-Agents • API Integration</p>
+              <p class="bio">
+                Leads product vision and end-to-end user experience—turning complex legal reasoning into a clean,
+                chat-based workflow. Builds and ships full-stack AI applications with a focus on usability and trust.
+              </p>
+            </div>
+          </div>
+
+          <div class="person">
+            <div class="avatar">SY</div>
+            <div>
+              <h3>Sai Yadavalli</h3>
+              <p class="role">Machine Learning • Retrieval • Systems</p>
+              <p class="bio">
+                Leads the intelligence layer—semantic retrieval, ranking, and evaluation. Brings strong ML and
+                quantitative systems experience to make outputs reliable, scalable, and grounded.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+           Duke AI Hackathon 1st Place Winner • Submitting to <strong>Microsoft Imagine Cup 2026</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-card">
+          <div>
+            <h2>Request a demo</h2>
+            <p>
+              Want to pilot Case Closed or learn more? Drop your email and a short note and we’ll reach out.
+            </p>
+            <ul class="bullets">
+              <li>Private beta for individuals, or small & mid-sized firms</li>
+              <li>Precedent recommendation workflows + memo outlines</li>
+              <li>Built with transparency + citations</li>
+              <li>Built for your ease</li>
+            </ul>
+          </div>
+
+          <form class="form" onsubmit="event.preventDefault(); alert('Thanks! Replace this with your form backend.');">
+            <label>
+              Name
+              <input type="text" name="name" placeholder="Jane Doe" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" placeholder="jane@lawfirm.com" required />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="4" placeholder="Tell us what you’re researching…" required></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Send</button>
+            <p class="fineprint">
+              By submitting, you agree we can contact you further about Case Closed.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <img class="footer-logo" src="assets/case-closed-logo.png" alt="Case Closed logo" />
+        <div>
+          <div class="footer-title">Case Closed</div>
+          <div class="footer-sub">From precedent to clarity.</div>
+        </div>
+      </div>
+      <div class="footer-right">
+        <a href="#product">Product</a>
+        <a href="#features">Features</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Case Closed. All rights reserved.</span>
+      <span class="muted">Not legal advice. For research assistance only.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const toggle = document.querySelector(".nav-toggle");
+    const menu = document.querySelector(".mobile-menu");
+    toggle.addEventListener("click", () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!expanded));
+      menu.hidden = expanded;
+    });
+
+    // Close menu on link click (mobile)
+    document.querySelectorAll(".mobile-links a").forEach(a => {
+      a.addEventListener("click", () => {
+        menu.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  </script>
+</body>
+</html>
