@@ -33,8 +33,6 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 
-const cors = require("cors");
-
 const allowedOrigins = new Set([
   "https://caseclosed-ai.netlify.app",
   "http://localhost:5500",
