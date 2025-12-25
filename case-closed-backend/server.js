@@ -187,8 +187,8 @@ app.post("/api/contact", async (req, res) => {
 
     // Use replyTo so you can hit "Reply" and it replies to the user
     await transporter.sendMail({
-      from,
-      to,
+      from: `Case Closed <${process.env.SMTP_USER}>`,
+      to: process.env.CONTACT_TO_EMAIL,
       subject,
       text,
       html,
@@ -197,9 +197,13 @@ app.post("/api/contact", async (req, res) => {
 
     return res.json({ ok: true });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ ok: false, error: "Failed to send message." });
-  }
+  console.error("SEND FAILED:", err);
+
+  return res.status(500).json({
+    ok: false,
+    error: err.message,
+  });
+}
 });
 
 // Helper to safely embed user text in HTML email
@@ -228,4 +232,15 @@ app.get("/health", (_req, res) => {
 app.use((err, _req, res, _next) => {
   console.error("Unhandled error:", err);
   res.status(500).json({ ok: false, error: "Server error" });
+});
+
+app.get("/debug-env", (_req, res) => {
+  res.json({
+    hasTo: Boolean(process.env.CONTACT_TO_EMAIL),
+    hasSmtpHost: Boolean(process.env.SMTP_HOST),
+    hasSmtpUser: Boolean(process.env.SMTP_USER),
+    hasSmtpPass: Boolean(process.env.SMTP_PASS),
+    smtpPort: process.env.SMTP_PORT,
+    smtpSecure: process.env.SMTP_SECURE,
+  });
 });

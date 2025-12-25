@@ -367,7 +367,12 @@
                 statusEl.textContent = "Sent! We’ll get back to you soon.";
                 form.reset();
             } catch (err) {
-                statusEl.textContent = err.message || "Something went wrong. Please try again.";
+                clearTimeout(timeout);
+                statusEl.textContent =
+                err.name === "AbortError"
+                ? "Request timed out — backend didn’t respond."
+                : (err.message || "Something went wrong.");
+            console.error("CONTACT ERROR:", err);
             }
             });
             </script>
