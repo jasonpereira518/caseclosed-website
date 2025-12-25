@@ -1,4 +1,13 @@
-node_modules/
+# Secrets
 .env
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS
 .DS_Store
-__pycache__/
+
+# Editor
+.vscode/

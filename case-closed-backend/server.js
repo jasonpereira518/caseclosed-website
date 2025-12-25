@@ -45,12 +45,9 @@ const allowedOrigins = (process.env.ALLOWED_ORIGIN || "")
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow non-browser requests (curl/postman) with no origin
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
+    if (!origin) return callback(null, true); // Postman/curl
+    if (allowedOrigins.length === 0) return callback(null, true); // if not set, allow
+    if (allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error("Not allowed by CORS: " + origin));
   },
   methods: ["GET", "POST", "OPTIONS"],
@@ -58,6 +55,7 @@ app.use(cors({
 }));
 
 app.options(/.*/, cors());
+
 
 
 // Rate limit to prevent spam
