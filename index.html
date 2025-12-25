@@ -340,33 +340,30 @@
             const statusEl = document.getElementById("formStatus");
 
             form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                statusEl.textContent = "Sending…";
+            e.preventDefault();
+            statusEl.textContent = "Sending…";
 
-                const formData = new FormData(form);
-                const payload = Object.fromEntries(formData.entries());
-                const API_BASE =
-                    location.hostname === "localhost" || location.hostname === "127.0.0.1"
-                        ? "http://localhost:3000"
-                        : "https://case-closed-backend.onrender.com";
+            const formData = new FormData(form);
+            const payload = Object.fromEntries(formData.entries());
 
-                try {
-                const res = await fetch(`${API_BASE}/api/contact`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
+            try {
+                const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
                 });
 
                 const data = await res.json();
-                if (!data.ok) throw new Error(data.error || "Failed to send.");
+                if (!res.ok || !data.ok) throw new Error(data.error || "Failed to send.");
 
                 statusEl.textContent = "Sent! We’ll get back to you soon.";
                 form.reset();
-                } catch (err) {
+            } catch (err) {
                 statusEl.textContent = err.message || "Something went wrong. Please try again.";
-                }
+            }
             });
             </script>
+
 
 
           <!-- <form class="form" onsubmit="event.preventDefault(); alert('Thanks! Replace this with your form backend.');">

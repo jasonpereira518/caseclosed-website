@@ -44,12 +44,7 @@ const allowedOrigins = (process.env.ALLOWED_ORIGIN || "")
   .filter(Boolean);
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // Postman/curl
-    if (allowedOrigins.length === 0) return callback(null, true); // if not set, allow
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("Not allowed by CORS: " + origin));
-  },
+  origin: [/\.netlify\.app$/, "http://localhost:5500", "http://127.0.0.1:5500"],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 }));
