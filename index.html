@@ -94,7 +94,7 @@
               <div class="window-dots">
                 <span></span><span></span><span></span>
               </div>
-              <div class="panel-title">Case Closed • Preview</div>
+              <div class="panel-title">Case Closed • <span style="opacity: 0.9;">Preview</span></div>
             </div>
 
             <div class="panel-body">
@@ -157,7 +157,7 @@
           </div>
 
           <div class="panel-note">
-            Transparent outputs • Citations included • Designed for iterative research
+            Transparent Outputs • Citations Included • For Research
           </div>
         </div>
       </div>
@@ -318,7 +318,54 @@
             </ul>
           </div>
 
-          <form class="form" onsubmit="event.preventDefault(); alert('Thanks! Replace this with your form backend.');">
+          <form class="form" id="contactForm">
+            <label>
+                Name
+                <input type="text" name="name" placeholder="Jane Doe" required />
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" placeholder="jane@lawfirm.com" required />
+            </label>
+            <label>
+                Message
+                <textarea name="message" rows="4" placeholder="Tell us what you’re researching…" required></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Send</button>
+            <p class="fineprint" id="formStatus"></p>
+            </form>
+
+            <script>
+            const form = document.getElementById("contactForm");
+            const statusEl = document.getElementById("formStatus");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                statusEl.textContent = "Sending…";
+
+                const formData = new FormData(form);
+                const payload = Object.fromEntries(formData.entries());
+
+                try {
+                const res = await fetch("https://caseclosed-ai.netlify.app/#contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+
+                const data = await res.json();
+                if (!data.ok) throw new Error(data.error || "Failed to send.");
+
+                statusEl.textContent = "Sent! We’ll get back to you soon.";
+                form.reset();
+                } catch (err) {
+                statusEl.textContent = err.message || "Something went wrong. Please try again.";
+                }
+            });
+            </script>
+
+
+          <!-- <form class="form" onsubmit="event.preventDefault(); alert('Thanks! Replace this with your form backend.');">
             <label>
               Name
               <input type="text" name="name" placeholder="Jane Doe" required />
@@ -335,7 +382,7 @@
             <p class="fineprint">
               By submitting, you agree we can contact you further about Case Closed.
             </p>
-          </form>
+          </form> -->
         </div>
       </div>
     </section>
