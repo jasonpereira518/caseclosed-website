@@ -44,7 +44,7 @@ const allowedOrigins = (process.env.ALLOWED_ORIGIN || "")
   .filter(Boolean);
 
 app.use(cors({
-  origin: [/\.netlify\.app$/, "http://localhost:5500", "http://127.0.0.1:5500"],
+  origin: [/\.netlify\.app$/, "http://localhost:5500", "http://127.0.0.1:5500", "https://caseclosed-ai.netlify.app"],
   methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: ["Content-Type"],
 }));
@@ -192,8 +192,12 @@ app.listen(PORT, () => {
   console.log(`Contact backend running on http://localhost:${PORT}`);
 });
 
-app.get("/", (req, res) => {
-  res.send("Case Closed backend is running ✅");
+app.get("/", (_req, res) => {
+  res.status(200).send("Case Closed backend is running ✅");
+});
+
+app.get("/health", (_req, res) => {
+  res.status(200).json({ ok: true });
 });
 
 app.use((err, _req, res, _next) => {

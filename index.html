@@ -345,16 +345,24 @@
 
             const formData = new FormData(form);
             const payload = Object.fromEntries(formData.entries());
-
+            const API_BASE =
+                location.hostname === "localhost" || location.hostname === "127.0.0.1"
+                    ? "http://localhost:3000"
+                    : "https://case-closed-backend.onrender.com";
             try {
-                const res = await fetch("/api/contact", {
+                const res = await fetch(`${API_BASE}/api/contact`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
                 });
 
+                if (!res.ok) {
+                const text = await res.text();   // 👈 NOT json()
+                throw new Error(`Server error: ${text}`);
+                }
+
                 const data = await res.json();
-                if (!res.ok || !data.ok) throw new Error(data.error || "Failed to send.");
+
 
                 statusEl.textContent = "Sent! We’ll get back to you soon.";
                 form.reset();
