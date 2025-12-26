@@ -117,11 +117,17 @@ function createTransporter() {
   }
 
   return nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: { user, pass },
-  });
+  host,
+  port,
+  secure: false, // 587
+  auth: { user, pass },
+  requireTLS: true,
+  tls: { servername: host },
+  connectionTimeout: 10000, // 10s
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
+});
+
 }
 
 // --- Contact endpoint ---
