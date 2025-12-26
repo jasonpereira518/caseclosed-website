@@ -105,8 +105,7 @@ function sanitize(str) {
 // --- Nodemailer transporter ---
 function createTransporter() {
   const host = process.env.SMTP_HOST;
-  const port = Number(process.env.SMTP_PORT || 465);
-  const secure = String(process.env.SMTP_SECURE || "true") === "true";
+  const port = Number(process.env.SMTP_PORT || 587);
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
@@ -133,6 +132,8 @@ function createTransporter() {
 // --- Contact endpoint ---
 app.post("/api/contact", async (req, res) => {
   try {
+    const started = Date.now();
+
     console.log("CONTACT hit", { origin: req.get("origin") });
 
     console.log("ENV CHECK", {
