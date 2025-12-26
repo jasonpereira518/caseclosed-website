@@ -197,13 +197,15 @@ app.post("/api/contact", async (req, res) => {
 
     return res.json({ ok: true });
   } catch (err) {
-  console.error("SEND FAILED:", err);
-
+  console.error("EMAIL ERROR:", err);
   return res.status(500).json({
     ok: false,
     error: err.message,
+    code: err.code,
+    response: err.response,
   });
 }
+
 });
 
 // Helper to safely embed user text in HTML email
