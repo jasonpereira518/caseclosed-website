@@ -133,6 +133,16 @@ function createTransporter() {
 // --- Contact endpoint ---
 app.post("/api/contact", async (req, res) => {
   try {
+    console.log("CONTACT hit", { origin: req.get("origin") });
+
+    console.log("ENV CHECK", {
+      hasHost: !!process.env.SMTP_HOST,
+      hasUser: !!process.env.SMTP_USER,
+      hasPass: !!process.env.SMTP_PASS,
+      hasTo: !!process.env.CONTACT_TO_EMAIL,
+      port: process.env.SMTP_PORT,
+      secure: process.env.SMTP_SECURE,
+    });
     const name = sanitize(req.body?.name);
     const email = sanitize(req.body?.email);
     const message = sanitize(req.body?.message);
@@ -157,7 +167,9 @@ app.post("/api/contact", async (req, res) => {
     }
 
     const transporter = createTransporter();
-
+    console.log("About to verify SMTP...");
+    await transporter.verify(); // TEMP: turn on for debugging
+    console.log("SMTP verified ✅");
     // Optional: verify SMTP connection (can be removed once stable)
     //await transporter.verify();
 
@@ -192,6 +204,7 @@ app.post("/api/contact", async (req, res) => {
     `;
 
     // Use replyTo so you can hit "Reply" and it replies to the user
+    console.log("About to send email...");
     await transporter.sendMail({
       from: `Case Closed <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_TO_EMAIL,
@@ -200,16 +213,17 @@ app.post("/api/contact", async (req, res) => {
       html,
       replyTo: email,
     });
+    console.log("Email sent ✅", Date.now() - started, "ms");
 
     return res.json({ ok: true });
   } catch (err) {
-  console.error("EMAIL ERROR:", err);
-  return res.status(500).json({
-    ok: false,
-    error: err.message,
-    code: err.code,
-    response: err.response,
-  });
+    console.error("CONTACT failed", {
+      message: err?.message,
+      code: err?.code,
+      stack: err?.stack,
+      ms: Date.now() - started,
+    });
+    return res.status(500).json({ ok: false, error: err.message, code: err.code });
 }
 
 });
