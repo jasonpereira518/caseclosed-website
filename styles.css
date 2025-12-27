@@ -328,7 +328,7 @@ h1{
 
   opacity: 1;
   /* slower */
-  animation: ytShimmer 4.2s ease-in-out infinite;
+  animation: ytShimmer 5.2s ease-in-out infinite;
 }
 
 @keyframes ytShimmer{
