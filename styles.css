@@ -236,6 +236,39 @@ a:hover{ opacity: 0.92; }
   box-shadow: 0 0 0 6px rgba(176, 122, 98, 0.18);
 }
 
+/* Refined single-ring pulse */
+.pill .dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--brand);
+  position: relative;
+
+  box-shadow: 0 0 0 0 rgba(176, 122, 98, 0.0);
+  animation: pulseDotClean 2.8s ease-out infinite;
+}
+
+@keyframes pulseDotClean {
+  0% {
+    box-shadow: 0 0 0 0 rgba(176, 122, 98, 0.45);
+  }
+
+  60% {
+    box-shadow: 0 0 0 5px rgba(176, 122, 98, 0.22);
+  }
+
+  /* fade out at full radius */
+  85% {
+    box-shadow: 0 0 0 5px rgba(176, 122, 98, 0.0);
+  }
+
+  /* invisible reset */
+  100% {
+    box-shadow: 0 0 0 0 rgba(176, 122, 98, 0.0);
+  }
+}
+
+
 h1{
   margin: 14px 0 10px;
   font-size: clamp(34px, 4vw, 54px);
