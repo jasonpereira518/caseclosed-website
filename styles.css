@@ -278,6 +278,97 @@ h1{
   font-size: 0.92rem;
 }
 
+/* YouTube Demo Button */
+/* YouTube Demo Button — with red shimmer */
+.btn-youtube{
+  margin-top: 20px;
+
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  gap: 10px;
+
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(176, 122, 98, 0.25);
+  color: var(--ink);
+
+  box-shadow: 0 10px 18px rgba(22, 15, 10, 0.06);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+
+  /* shimmer setup */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-youtube::before{
+  content: "";
+  position: absolute;
+  top: -55%;
+  left: -85%;
+
+  /* wider band */
+  width: 90%;
+  height: 210%;
+
+  transform: skewX(-18deg);
+  pointer-events: none;
+
+  /* more red + stronger center */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 0, 0, 0.00),
+    rgba(255, 0, 0, 0.28),
+    rgba(255, 0, 0, 0.55),
+    rgba(255, 0, 0, 0.28),
+    rgba(255, 0, 0, 0.00),
+    transparent
+  );
+
+  opacity: 1;
+  /* slower */
+  animation: ytShimmer 4.2s ease-in-out infinite;
+}
+
+@keyframes ytShimmer{
+  0%   { transform: translateX(-170%) skewX(-18deg); }
+  60%  { transform: translateX(260%) skewX(-18deg); }
+  100% { transform: translateX(260%) skewX(-18deg); }
+}
+
+
+/* keep text/icon above shimmer */
+.btn-youtube > *{
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes ytShimmer{
+  0%   { transform: translateX(-140%) skewX(-18deg); }
+  55%  { transform: translateX(240%) skewX(-18deg); }
+  100% { transform: translateX(240%) skewX(-18deg); }
+}
+
+.btn-youtube:hover{
+  box-shadow: 0 12px 18px rgba(22, 15, 10, 0.08);
+  transform: translateY(-1px);
+}
+
+.btn-youtube:active{
+  transform: translateY(1px);
+}
+
+
+.yt-logo{
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  display: inline-block;
+}
+
+
+
 /* Hero right panel */
 .hero-panel{
   position: relative;
