@@ -364,12 +364,6 @@ h1{
   animation: ytShimmer 5.2s ease-in-out infinite;
 }
 
-@keyframes ytShimmer{
-  0%   { transform: translateX(-170%) skewX(-18deg); }
-  60%  { transform: translateX(260%) skewX(-18deg); }
-  100% { transform: translateX(260%) skewX(-18deg); }
-}
-
 
 /* keep text/icon above shimmer */
 .btn-youtube > *{
@@ -674,6 +668,18 @@ h1{
   color: var(--brand);
   font-weight: 800;
 }
+.email{
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 650;
+  color: rgba(43,42,40,0.72);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.email:hover{
+  color: var(--ink);
+}
+
 .bio{
   margin: 0;
   color: var(--muted);
